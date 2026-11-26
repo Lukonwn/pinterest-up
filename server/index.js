@@ -26,6 +26,7 @@ export function buildApp() {
 
   // Frontend estático (somente as pastas públicas) com fallback de SPA
   for (const d of ['css', 'js', 'images', 'assets']) app.use(`/${d}`, express.static(path.join(root, d), { maxAge: '1h' }));
+  app.get(['/painel', '/painel/'], (_req, res) => res.sendFile(path.join(root, 'admin', 'index.html')));
   app.get('/cash.mp3', (_req, res) => res.status(404).end());
   app.get('*', (_req, res) => res.sendFile(path.join(root, 'index.html')));
 
